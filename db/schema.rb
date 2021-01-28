@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_011140) do
 
   create_table "devil_fruits", force: :cascade do |t|
     t.string "name", null: false
-    t.string "type", null: false
+    t.string "power_type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
