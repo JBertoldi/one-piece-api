@@ -1,6 +1,16 @@
 class Character < ApplicationRecord
-  belongs_to :devil_fruit
-  belongs_to :pirate_crew
+  belongs_to :devil_fruit, optional: true
+  belongs_to :pirate_crew, optional: true
 
-  validates :en_name, :jp_name, :epithet, uniqueness: true
+  validates_presence_of :en_name, :jp_name, :epithet
+  validates_uniqueness_of :en_name, :jp_name, :epithet
+  validates :en_name, format: { with: /\A([\p{L}.])+(\s[\p{L}.]+)*\Z/ }
+
+  before_save :format_en_name
+
+  private
+
+  def format_en_name
+    self.en_name = en_name.split.map(&:capitalize).join(' ')
+  end
 end
