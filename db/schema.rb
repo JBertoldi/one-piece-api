@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2021_01_28_011140) do
     t.string "epithet"
     t.integer "bounty"
     t.string "status", default: "alive"
-    t.bigint "devil_fruit_id", null: false
-    t.bigint "pirate_crew_id", null: false
+    t.bigint "devil_fruit_id"
+    t.bigint "pirate_crew_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["devil_fruit_id"], name: "index_characters_on_devil_fruit_id"
