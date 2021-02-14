@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) { |repo| 'https://github.com/#{repo}.git' }
 
 ruby '2.6.6'
 
@@ -27,7 +27,6 @@ gem 'jbuilder', '~> 2.7'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
-
 gem 'faker'
 
 group :development, :test do
@@ -43,6 +42,9 @@ end
 
 group :development do
   gem 'listen', '~> 3.2'
+  gem 'rubocop'
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
@@ -53,6 +55,7 @@ end
 group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'simplecov', require: false
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
