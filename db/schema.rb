@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_011140) do
+ActiveRecord::Schema.define(version: 2021_02_14_173622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 2021_01_28_011140) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["devil_fruit_id"], name: "index_characters_on_devil_fruit_id"
+    t.index ["en_name"], name: "index_characters_on_en_name", unique: true
+    t.index ["epithet"], name: "index_characters_on_epithet", unique: true
+    t.index ["jp_name"], name: "index_characters_on_jp_name", unique: true
     t.index ["pirate_crew_id"], name: "index_characters_on_pirate_crew_id"
   end
 
@@ -34,12 +37,14 @@ ActiveRecord::Schema.define(version: 2021_01_28_011140) do
     t.string "power_type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_devil_fruits_on_name", unique: true
   end
 
   create_table "pirate_crews", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_pirate_crews_on_name", unique: true
   end
 
   add_foreign_key "characters", "devil_fruits"
