@@ -1,4 +1,7 @@
 class PirateCrew < ApplicationRecord
+  include PgSearch::Model
+  multisearchable against: %i[name]
+
   has_many :characters
 
   validates :name, presence: true, uniqueness: true
