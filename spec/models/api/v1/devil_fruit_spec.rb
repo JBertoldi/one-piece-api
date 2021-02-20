@@ -2,21 +2,22 @@ require 'rails_helper'
 
 RSpec.describe DevilFruit, type: :model do
   describe 'Model' do
-    subject { create(:devil_fruit) }
+    subject { create(:rubber_fruit) }
+
+    it 'has a valid factory' do
+      expect(build(:rubber_fruit)).to be_valid
+    end
 
     it 'should be valid' do
       expect(subject).to be_valid
     end
 
     it 'duplicate should be invalid' do
-      create(:devil_fruit)
-      expect { create(:devil_fruit) }.to raise_error(ActiveRecord::RecordNotUnique)
+      subject
+      expect { create(:rubber_fruit) }.to raise_error(ActiveRecord::RecordNotUnique)
     end
 
-    it 'is not valid without name' do
-      subject.name = nil
-      expect(subject).to_not be_valid
-    end
+    it { should validate_presence_of(:name) }
 
     it 'expect name format to be valid' do
       expect(subject.name).to match(/\A([\p{L}.])+(\s[\p{L}.]+)*\Z/)

@@ -2,26 +2,25 @@ require 'rails_helper'
 
 RSpec.describe Character, type: :model do
   describe 'Model' do
-    subject { create(:character) }
+    subject { create(:luffy) }
+
+    it 'has a valid factory' do
+      expect(build(:luffy)).to be_valid
+      expect(build(:zoro)).to be_valid
+      expect(build(:luffy2)).to be_valid
+    end
 
     it 'should be valid' do
       expect(subject).to be_valid
     end
 
     it 'duplicate should be invalid' do
-      create(:character)
-      expect { create(:character) }.to raise_error(ActiveRecord::RecordInvalid)
+      subject
+      expect { create(:luffy) }.to raise_error(ActiveRecord::RecordNotUnique)
     end
 
-    it 'is not valid without jp_name' do
-      subject.jp_name = nil
-      expect(subject).to_not be_valid
-    end
-
-    it 'is not valid without en_name' do
-      subject.en_name = nil
-      expect(subject).to_not be_valid
-    end
+    it { should validate_presence_of(:jp_name) }
+    it { should validate_presence_of(:en_name) }
 
     it 'expect english_name format to be valid' do
       expect(subject.en_name).to match(/\A([\p{L}.])+(\s[\p{L}.]+)*\Z/)
