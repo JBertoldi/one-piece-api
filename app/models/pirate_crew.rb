@@ -1,6 +1,6 @@
 class PirateCrew < ApplicationRecord
   include PgSearch::Model
-  multisearchable against: %i[name]
+  multisearchable against: :name
 
   has_many :characters
 

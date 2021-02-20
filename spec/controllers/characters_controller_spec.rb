@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe Api::V1::CharactersController, type: :controller do
   describe 'GET #index' do
     before do
-      create(:character)
+      create(:luffy)
+      create(:zoro)
     end
+
     before do
       get :index
     end
@@ -13,24 +15,26 @@ RSpec.describe Api::V1::CharactersController, type: :controller do
       expect(response).to have_http_status(200)
     end
 
+    it 'has two characters' do
+      expect(json_body.length).to eq(2)
+    end
+
     it 'JSON body response contains expected characters and attributes' do
-      json_response = JSON.parse(response.body, symbolize_names: true)
-      expect(json_response[0].keys).to match_array(%i[id japanese_name bounty english_name epithet pirate_crew devil_fruit])
+      expect(json_body[0].keys).to match_array(%i[id japanese_name english_name bounty status epithet pirate_crew devil_fruit])
     end
   end
 
   describe 'GET #show' do
-    let(:character) { create(:character) }
+    let(:luffy) { create(:luffy) }
 
     it 'returns http success' do
-      get :show, params: { id: character.id }
+      get :show, params: { id: luffy.id }
       expect(response).to have_http_status(200)
     end
 
     it 'returns data of an single student' do
-      get :show, params: { id: character.id }
-      parsed_response = JSON.parse(response.body)
-      expect(parsed_response.length).to be(1)
+      get :show, params: { id: luffy.id }
+      expect(json_body.length).to be(1)
     end
 
     it 'returns an error if the student does not exist' do
