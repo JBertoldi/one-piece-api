@@ -1,4 +1,7 @@
 class DevilFruit < ApplicationRecord
+  include PgSearch::Model
+  multisearchable against: %i[name power_type]
+
   has_many :characters
 
   validates :name, presence: true, uniqueness: true

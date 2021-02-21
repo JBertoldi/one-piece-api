@@ -1,4 +1,7 @@
 class Character < ApplicationRecord
+  include PgSearch::Model
+  multisearchable against: %i[en_name jp_name status epithet bounty]
+
   belongs_to :devil_fruit, optional: true
   belongs_to :pirate_crew, optional: true
 

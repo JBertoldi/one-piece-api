@@ -2,21 +2,22 @@ require 'rails_helper'
 
 RSpec.describe PirateCrew, type: :model do
   describe 'Model' do
-    subject { create(:pirate_crew) }
+    subject { create(:straw_hats) }
+
+    it 'has a valid factory' do
+      expect(build(:straw_hats)).to be_valid
+    end
 
     it 'should be valid' do
       expect(subject).to be_valid
     end
 
     it 'duplicate should be invalid' do
-      create(:pirate_crew)
-      expect { create(:pirate_crew) }.to raise_error(ActiveRecord::RecordNotUnique)
+      subject
+      expect(create(:straw_hats)).to be_invalid
     end
 
-    it 'is not valid without name' do
-      subject.name = nil
-      expect(subject).to_not be_valid
-    end
+    it { should validate_presence_of(:name) }
 
     it 'expect name format to be valid' do
       expect(subject.name).to match(/\A([\p{L}.])+(\s[\p{L}.]+)*\Z/)
